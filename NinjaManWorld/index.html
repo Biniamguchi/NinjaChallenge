@@ -1,0 +1,134 @@
+<html>
+
+<head>
+    <title>NinjaMan</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .row {
+            line-height: 0;
+        }
+        
+        .wall {
+            background-color: blue;
+            height: 40px;
+            width: 40px;
+            display: inline-block;
+        }
+        
+        .sushi {
+            background-color: black;
+            height: 40px;
+            width: 40px;
+            display: inline-block;
+            background-image: url('img/sushi.png');
+            background-size: contain;
+        }
+        
+        .blank {
+            background-color: black;
+            height: 40px;
+            width: 40px;
+            display: inline-block;
+        }
+        
+        #ninja {
+            background-color: black;
+            height: 40px;
+            width: 40px;
+            display: inline-block;
+            background-image: url('img/ninja.gif');
+            background-size: contain;
+            position: absolute;
+            left: 40px;
+            top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='world'></div>
+    <!-- <div id='ninja'></div> -->
+    <div>
+        <div id='character' style='position:absolute; left: 40px; top: 40px; display: inline-block; background-color: black; top:40px; left:40px; background-image: url("img/ninja.gif"); background-size: contain;width:40px; height:40px;'></div>
+    </div>
+
+    <script type="text/javascript">
+        var leftValue = 40,
+            topValue = 40;
+
+
+
+        function update() {
+
+            document.getElementById("character").style.left = leftValue + "px";
+            document.getElementById("character").style.top = topValue + "px";
+
+        }
+        document.onkeydown = function(e) {
+            console.log('e', e);
+            console.log('e.keyCode: ', e.keyCode);
+            if (e.keyCode == 37 && leftValue > 40) { // LEFT  
+                leftValue = leftValue - 10;
+
+
+            } else if (e.keyCode == 39 && leftValue <= 120) { // RIGHT                
+                leftValue = leftValue + 10;
+
+            } else if (e.keyCode == 40 && topValue <= 360) { // DOWN                
+                topValue = topValue + 10;
+
+
+            } else if (e.keyCode == 38 && topValue > 40) { // UP                
+                topValue = topValue - 10;
+
+            }
+            // ...
+
+            update();
+        }
+    </script>
+
+    <body>
+        <script type="text/javascript">
+            var world = [
+                [1, 1, 1, 1, 1],
+                [1, 0, 2, 2, 1],
+                [1, 2, 1, 2, 1],
+                [1, 2, 2, 2, 1],
+                [1, 0, 2, 2, 1],
+                [1, 2, 1, 2, 1],
+                [1, 2, 2, 2, 1],
+                [1, 0, 2, 2, 1],
+                [1, 2, 1, 2, 1],
+                [1, 2, 2, 2, 1],
+                [1, 1, 1, 1, 1],
+            ];
+            var worldDict = {
+                0: 'blank',
+                1: 'wall',
+                2: 'sushi'
+            }
+
+            function drawWorld() {
+                output = "";
+                for (var row = 0; row < world.length; row++) {
+                    output += "<div class = 'row'>"
+                    for (var x = 0; x < world[row].length; x++) {
+                        // console.log("value: ", world[row][x])
+                        // console.log("element: ", worldDict[world[row][x]])
+                        output += "<div class = '" + worldDict[world[row][x]] + "'></div>"
+
+                    }
+                    output += "</div>"
+
+                }
+                document.getElementById('world').innerHTML = output;
+            }
+            drawWorld()
+        </script>
+
+</html>
