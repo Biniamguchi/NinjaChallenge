@@ -32,7 +32,7 @@
         
         .missile {
             position: absolute;
-            background-color: red;
+            background-color: rgb(255, 0, 0);
             width: 2px;
             height: 10px;
         }
@@ -47,6 +47,7 @@
             <!-- <div class="enemy"></div> -->
         </div>
         <div id="missiles">
+
         </div>
     </div>
 
@@ -97,15 +98,28 @@
             // console.log(content);
         }
         // drawEnemies();
+        function drawMissiles() {
+            content = "";
+            for (var idx = 0; idx < missiles.length; idx++) {
+                content += "<div class='missile' style='left:" + missiles[idx].left + "px; top:" + missiles[idx].top + "px'></div>"
+            }
+            document.getElementById("missiles").innerHTML = content;
+        }
 
         function moveEnemies() {
             for (var idx = 0; idx < enemies.length; idx++) {
-                enemies[idx].top = enemies[idx].top + 5;
+                enemies[idx].top = enemies[idx].top + 1;
 
             }
 
         }
         // moveEnemies();
+        function moveMissles() {
+            for (var idx = 0; idx < missiles.length; idx++) {
+                missiles[idx].top = missiles[idx].top - 4;
+
+            }
+        }
 
         document.onkeydown = function(e) {
             console.log(e);
@@ -139,7 +153,10 @@
             moveEnemies();
             drawEnemies();
 
-            setTimeout(gameLoop, 1000)
+            moveMissles();
+            drawMissiles();
+
+            setTimeout(gameLoop, 10)
         }
         gameLoop();
     </script>
